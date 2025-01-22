@@ -1,3 +1,4 @@
+# Run postgres and pgadmin
 docker run -it \  
   --network=pg-network \
   --name pg-database \
@@ -18,7 +19,7 @@ docker run -d \
 
 URL="http://172.28.112.1:8000/green_tripdata_2019-10.csv"
 
-# Local machine
+# Run script on local machine
 python ingest_data.py \
   --user=root \
   --password=1234 \
@@ -30,8 +31,8 @@ python ingest_data.py \
 
 docker build -t taxi_ingest:v003 .
 
-# Docker build
-URL="http://172.28.112.1:8000/green_tripdata_2019-10.csv"
+# Run script in Docker build
+URL="http://172.28.112.1:8000/green_tripdata_2019-10.csv"  // this is file that I want to ingest to DB.
 
 docker run -it \
   taxi_ingest:v002 \
@@ -42,17 +43,4 @@ docker run -it \
     --port=5432 \
     --db=ny_taxi \
     --table_name=green_taxi_trips \
-    --url=${URL}
-
-URL="http://172.28.112.1:8000/taxi_zone_lookup.csv"
-
-docker run -it \
-  taxi_ingest:v003 \
-    --network=pg-network \
-    --user=root \
-    --password=1234 \
-    --host=pg-database \
-    --port=5432 \
-    --db=ny_taxi \
-    --table_name=taxi_zone \
     --url=${URL}

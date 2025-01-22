@@ -5,6 +5,5 @@ RUN pip install pandas sqlalchemy psycopg2-binary
 
 WORKDIR /app
 COPY ../2_docker_sql/ingest_data.py ingest_data.py
-# COPY ../2_docker_sql/yellow_tripdata_2021-01.csv yellow_tripdata_2021-01.csv
 
 ENTRYPOINT [ "python", "ingest_data.py" ]
